@@ -1,10 +1,8 @@
-// import LoginForm from "@/components/LoginForm";
 "use client";
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
-// import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default function Home() {
   const { data: session } = useSession();

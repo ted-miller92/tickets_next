@@ -3,35 +3,55 @@
 import Link from "next/link";
 import React, {useState } from "react";
 import Select from "react-select";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
+
+const userData = {
+    name: "",
+    email: "",
+    password: "",
+};
 
 export default function RegisterForm({dbOptions}: any) {
     // state variables
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [selectedDb, setSelectedDb] = useState("");
+    const [formData, setFormData] = useState(userData);
+    const [selectedDb, setSelectedDb] = useState<string>('');
+    const [error, setError] = useState<string>('');
     const [isSearchable, setIsSearchable] = useState(true);
 
     // router
     const router = useRouter();
 
     // options for select dropdown 
+    type SelectOptionType = {label: string, value: string}
     const options = dbOptions.map((db: any) => ({
-        value: JSON.stringify(db),
-        label: db
+        value: db,
+        label: db,
     }));
 
     // handle change of select dropdown
-    const handleChange = (selectedDb: { value: string; }) => {
-        setSelectedDb(JSON.parse(selectedDb.value));
+    const handleSelectChange = (option: SelectOptionType | null) => {
+        if (option) {
+            setSelectedDb(option.value);
+            console.log(selectedDb);
+        }
     }
 
+    // handle change for text inputs
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prevState) => ({
+            ...prevState, 
+            [e.target.name]: e.target.value,
+        }));
+        console.log(e.target.value);
+    }
+   
     // handle submit
-    const  handleSubmit = async (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const {name, email, password} = formData;
+        console.log(name, email, password, selectedDb);
+        
         if (!name || !email || !password || !selectedDb) {
             setError("All fields are required");
             return;
@@ -70,25 +90,29 @@ export default function RegisterForm({dbOptions}: any) {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-3">
                     <input 
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        onChange={onChange}
                         type="text" 
                         placeholder="Full Name"
                     />
                     <input 
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
+                        onChange={onChange}
                         type="text" 
                         placeholder="Email"
                     />
                     <input 
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        onChange={onChange}
                         type="password" 
                         placeholder="Password"
                     />
                     
                     <label>Select your group or restaurant:</label>
                     <Select 
-                        onChange={handleChange}
+                        id="selectedDb"
                         options={options} 
+                        onChange={handleSelectChange}
                         isSearchable={isSearchable}
                     />
                     <button className="bg-purple-500 text-white font-bold cursor-pointer px-6 py-2">Register</button>

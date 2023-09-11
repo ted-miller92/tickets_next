@@ -1,3 +1,5 @@
+"use client"
+
 import RegisterForm from "../components/RegisterForm";
 import React, { useEffect, useState } from "react";
 

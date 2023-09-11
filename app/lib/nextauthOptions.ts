@@ -9,11 +9,11 @@ export const nextauthOptions: AuthOptions = {
             name: "credentials",
             credentials: {
                 email: {
-                    label: "E-mail",
+                    label: "email",
                     type: "text",
                   },
                 password: {
-                    label: "Password",
+                    label: "password",
                     type: "password",
                 },
             },
@@ -24,16 +24,15 @@ export const nextauthOptions: AuthOptions = {
 
                 const email = credentials?.email.toLowerCase();
 
-                const user = await collection.findOne({email});
-
+                const user = await collection.findOne({email: email});
                 if (!user) {
                     throw new Error("User does not exist");
                 }
 
                 // password validation
                 const passwordValid = await bcrypt.compare(
-                    credentials?.password!,
-                    user.password
+                    credentials.password,
+                    user.hashedPassword
                 );
 
                 if (!passwordValid){
@@ -47,4 +46,7 @@ export const nextauthOptions: AuthOptions = {
             },
         }),
     ],
+    session: {
+        strategy: "jwt",
+    },
 }
