@@ -2,8 +2,23 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
 import clientPromise from "./mongodb";
 import bcrypt from "bcrypt";
+import NextAuth from "next-auth/next";
 
 export const nextauthOptions: AuthOptions = {
+    callbacks: {
+        async session({session, token, user}){
+            console.log("Session callback", session, token, user);
+            const client = await clientPromise;
+            const collection = client.db("users").collection("users");
+
+            const userData = await collection.findOne({ email: session.user.email});
+
+            session.user.selectedDb = userData.selectedDb;
+            
+            return session;
+        },
+        
+    },
     providers: [
         CredentialsProvider({
             name: "credentials",
@@ -36,7 +51,7 @@ export const nextauthOptions: AuthOptions = {
                 );
 
                 if (!passwordValid){
-                    throw new Error("Invalid credentials");
+                    throw new Error("Invalid Credentials");
                 }
 
                 return{
@@ -46,6 +61,9 @@ export const nextauthOptions: AuthOptions = {
             },
         }),
     ],
+    pages: {
+        signIn: "/login",
+    },
     session: {
         strategy: "jwt",
     },

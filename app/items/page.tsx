@@ -18,7 +18,7 @@ export default async function RestrictedPage() {
 	// display the page
 	return (
 		<div>
-			<h1>Welcome to the Restricted Page, {session?.user?.name}</h1>
+			<h1>Welcome to the Items Page, {session?.user?.name}</h1>
 		</div>
 	);
 }

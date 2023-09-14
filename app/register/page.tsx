@@ -3,7 +3,7 @@
 import RegisterForm from "../components/RegisterForm";
 import React, { useEffect, useState } from "react";
 
-export default function Register() {
+export default function RegisterPage() {
     const [dbOptions, setDbOptions] = useState([]);
 
     useEffect(() => {

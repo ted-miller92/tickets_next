@@ -115,14 +115,13 @@ export default function RegisterForm({dbOptions}: any) {
                         onChange={handleSelectChange}
                         isSearchable={isSearchable}
                     />
-                    <button className="bg-purple-500 text-white font-bold cursor-pointer px-6 py-2">Register</button>
 
                     { error && (
                         <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
                             {error}</div>
                     )}
-
-                    <Link className="hover:text-purple-400" href={"/"}>Already a user? Login</Link>
+                    <button className="bg-purple-500 text-white font-bold cursor-pointer px-6 py-2">Register</button>
+                    <Link className="hover:text-purple-400" href={"/login"}>Already a user? Login</Link>
                 </form>
             </div>
         </div>
