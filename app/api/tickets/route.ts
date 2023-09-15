@@ -1,12 +1,17 @@
 // This API endpoint returns a list of tickets from the db
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 import clientPromise from "../../lib/mongodb";
 
-export async function GET(req: NextRequest, res: NextResponse) {
-    // get the specified database
+export async function POST(req: Request, res: Response) {
+    
+    const data = await req.json();
 
-    // get all the tickets
+    const selectedDb = data.selectedDb;
+    const client = await clientPromise;
+    const collection = client.db(selectedDb).collection("tickets");
 
-    // return all the tickets
+    const tickets = await collection.find().toArray();
+
+    return NextResponse.json(tickets);
 }
