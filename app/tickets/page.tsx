@@ -41,13 +41,8 @@ export default function Tickets() {
     const selectedDb: string = session.user.selectedDb;
 
     const loadTickets = async () => {
-        const res = await fetch("/api/tickets", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({"selectedDb": selectedDb}),
-        });
+        const res = await fetch(`/api/tickets?selectedDb=${selectedDb}`, {
+            method: "GET",});
         const data = await res.json();
         const ticketArray: Ticket[] = Object.values(data);
         setAllTickets(ticketArray);
@@ -62,7 +57,7 @@ export default function Tickets() {
         <div>
             <h1>Welcome to the Tickets Page, {session?.user?.name}</h1>
             <ActiveTicketList allTickets={allTickets}/>
-            <AllTicketList allTickets={allTickets}/>
+            {/* <AllTicketList allTickets={allTickets}/> */}
         </div>
     );
 }
