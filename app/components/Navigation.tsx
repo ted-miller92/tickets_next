@@ -9,18 +9,15 @@ export default function Navigation() {
 
     }
 
-    const primaryLinkMap: any = [
-        {href : "/", name: "Home"},
-        {href : "/tickets", name: "Tickets"},
-        {href : "/items", name : "Items"}
-    ]
-
     return (
         <nav className="flex p-2 text-lg">
             <div className="flex w-2/12 justify-between">
                 <Link href="/">Home</Link>
+                <Link href="/activeTickets">Active Tickets</Link>
+                <Link href="/allTickets">All Tickets</Link>
                 <Link href="/tickets">Tickets</Link>
                 <Link href="/items">Items</Link>
+
             </div>
             <div className="flex grow justify-end">
                 {session
