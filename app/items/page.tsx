@@ -11,7 +11,7 @@ export default async function Items() {
 
 	// redirect to signin if there is no session.
 	if (!session?.user) {
-		const url = new URL("/api/auth/signin", "http://localhost:3000");
+		const url = new URL("/api/auth/signin", "/");
 		url.searchParams.append("callbackUrl", "/items");
 		redirect(url.toString());
 	}

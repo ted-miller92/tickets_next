@@ -7,6 +7,7 @@ type Item = {
 }
 
 type Ticket = {
+    _id: string
     cust_name: string
     date: string
     time: string

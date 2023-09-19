@@ -5,11 +5,8 @@ import clientPromise from "../../lib/mongodb";
 
 export async function GET(req: NextRequest, res: NextResponse) {
     const selectedDb = req.nextUrl.searchParams.get("selectedDb")
-
     const client = await clientPromise;
     const collection = client.db(selectedDb).collection("tickets");
-
     const tickets = await collection.find({"active": true}).toArray();
-
     return NextResponse.json(tickets);
 }

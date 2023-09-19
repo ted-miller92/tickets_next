@@ -18,12 +18,9 @@ export default function Navigation() {
     return (
         <nav className="flex p-2 text-lg">
             <div className="flex w-2/12 justify-between">
-                {primaryLinkMap.map((link: any) => 
-                    <Link
-                        className=""
-                        href={link.href}
-                    >{link.name}</Link>
-                )}
+                <Link href="/">Home</Link>
+                <Link href="/tickets">Tickets</Link>
+                <Link href="/items">Items</Link>
             </div>
             <div className="flex grow justify-end">
                 {session

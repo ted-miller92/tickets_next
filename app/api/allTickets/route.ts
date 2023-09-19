@@ -50,7 +50,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const time_string = current_date.toLocaleTimeString();
 
     // ticket object
-    const ticket: Ticket = ({
+    const ticket: any = ({
         cust_name: cust_name, 
         date: date_string,
         time: time_string,
@@ -72,11 +72,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function PUT(req: NextRequest, res: NextResponse) {
     const body = await req.json();
-
     const id = body._id;
-    console.log(typeof(body._id));
     const selectedDb = body.selectedDb;
-    console.log(typeof(body.active));
+    
     // connect to db and make the edit
     const client = await clientPromise;
 

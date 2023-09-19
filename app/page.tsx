@@ -4,13 +4,19 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Navigation from "./components/Navigation";
+import Link from "next/link";
 
 export default function Home() {
 	const { data: session } = useSession();
 
 	if (session && session.user) {
-		console.log("session.user", session?.user);
-		return <button onClick={() => signOut()}>Sign Out</button>
+		return (
+			<div>
+				<Link href="/tickets">Tickets</Link>
+				<Link href="/items">Items</Link>
+				<button onClick={() => signOut()}>Sign Out</button>
+			</div>
+		);
 	}
 
 	return (
