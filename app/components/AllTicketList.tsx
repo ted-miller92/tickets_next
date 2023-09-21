@@ -4,7 +4,11 @@ import useSWR from 'swr';
 import { updateActiveStatus } from '../lib/ticketLogic';
 import AllTicketListItem from './AllTicketListItem';
 
-export default function AllTicketList({selectedDb}: any){
+interface IProps{
+    selectedDb: string
+}
+
+export default function AllTicketList({selectedDb}: IProps){
     
     const fetcher = (url: string) => fetch(url).then((res) => res.json());
     const {data, error, isLoading, mutate} = useSWR(`/api/allTickets?selectedDb=${selectedDb}`, fetcher);

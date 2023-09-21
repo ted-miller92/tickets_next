@@ -11,13 +11,11 @@ export default function Navigation() {
 
     return (
         <nav className="flex p-2 text-lg">
-            <div className="flex w-2/12 justify-between">
+            <div className="flex w-4/12 justify-between">
                 <Link href="/">Home</Link>
                 <Link href="/activeTickets">Active Tickets</Link>
                 <Link href="/allTickets">All Tickets</Link>
-                <Link href="/tickets">Tickets</Link>
                 <Link href="/items">Items</Link>
-
             </div>
             <div className="flex grow justify-end">
                 {session
