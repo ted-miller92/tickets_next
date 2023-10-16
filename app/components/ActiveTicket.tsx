@@ -7,6 +7,10 @@ interface IProps{
 }
 
 export default function ActiveTicket({ticket, selectedDb, toggleActive = () => {}}: IProps) {
+
+    const ticketItems = ticket.ticket_items;
+    console.log(ticketItems);
+
     return (
         <div className="bg-white p-2 w-fit border border-grey-400 shadow-md hover:shadow-xl">
             <h3>{ticket.cust_name}</h3>
@@ -18,6 +22,14 @@ export default function ActiveTicket({ticket, selectedDb, toggleActive = () => {
                 <button className="bg-white hover:bg-slate-200 text-gray-800 font-bold py-2 px-4 border border-gray-300 rounded shadow"
                     >Edit</button>
             </div>
+
+            {ticketItems.map((item, key) => (
+                <div>
+                    <p>{item.item_name}</p>
+                    <p>{item.mods}</p>
+                    <p>{item.price}</p>
+                </div>
+            ))}
         </div>
     );
 }
